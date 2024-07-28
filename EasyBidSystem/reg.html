@@ -1,0 +1,480 @@
+<!-- reg.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>User Account</title>
+
+     <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+   <link rel="stylesheet" type="text/css" href="css/style.css">
+   <style>
+      .fixed h1 {
+         position: fixed;
+      }
+      .center-container {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+      }
+
+      .tabs-container {
+         width: 80%;
+         max-width: 600px;
+         background-color: #fff;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         overflow: hidden; /* Prevents content from overflowing */
+         margin-top: 20px; /* Adjust top margin */
+      }
+
+      .tab-links {
+         display: flex;
+         justify-content: space-between;
+         list-style-type: none;
+         padding: 0;
+         margin: 0;
+         background-color: #f0f0f0;
+         border-top-left-radius: 8px;
+         border-top-right-radius: 8px;
+      }
+
+      .tab-link {
+         flex: 1;
+         text-align: center;
+         padding: 15px 0;
+         cursor: pointer;
+         position: relative; /* Required for absolute positioning */
+      }
+
+      .tab-link:hover {
+         background-color: #e0e0e0;
+      }
+
+      .tab-link.active::after {
+         content: "";
+         display: block;
+         width: 100%;
+         height: 3px; /* Adjust line thickness */
+         background-color: #0092CC; /* Color of the sliding line */
+         position: absolute;
+         bottom: 0;
+         left: 0;
+      }
+
+      .tab-content {
+         padding: 20px;
+         text-align: center;
+         background-color: #fff; /* Match background color */
+         border-radius: 0 
+         box-shadow: none;
+         height: 400px;
+         overflow-y: auto;
+      }
+
+      .tab-content > div {
+         display: none;
+      }
+
+      .tab-content > div.active {
+         display: block;
+      }
+
+      /* Style for forms */
+      form {
+         max-width: 300px; /* Adjust width as needed */
+         max-height: 800px;
+         margin: 0 auto; /* Center align form */
+         background-color: transparent;
+         position: relative;
+      }
+
+      form label {
+         display: block;
+         margin-bottom: 0;
+         text-align: left;
+         color: #666; /* Faint color for label */
+         font-weight: 300; /* Light font weight */
+         position: relative;
+         top: 0px; /* Adjust to align label on line */
+         padding-left: 5px;
+      }
+
+      form input[type="text"],
+      form input[type="phone"],
+      form input[type="license"],
+      form input[type="password"] {
+         width: 100%;
+         border: none;
+         border-bottom: 1px solid #ccc; /* Line effect */
+         outline: none;
+         font-size: 16px;
+         color: #333; /* Text color */
+         background-color: transparent; /* Transparent background */
+         margin-bottom: 0px; /* Add space between inputs */
+         position: relative;
+         top: -4px; /* Adjust to align input with label */
+      }
+
+      form input[type="text"]:focus,
+      form input[type="phone"]:focus,
+      form input[type="license"]:focus,
+      form input[type="password"]:focus {
+         border-bottom: 1px solid #0092CC; /* Highlighted line on focus */
+      }
+
+      form input[type="submit"] {
+         background-color: #0092CC;
+         color: #fff;
+         border: none;
+         padding: 12px 20px;
+         border-radius: 4px;
+         cursor: pointer;
+         transition: background-color 0.3s;
+      }
+
+      form input[type="submit"]:hover {
+         background-color: #0056b3;
+      }
+
+      .disclaimer {
+         display: none;
+         font-size: 12px;
+         color: #666;
+         margin-top: -15px; /* Adjust margin as needed */
+         text-align: left;
+         margin-bottom: 15px;
+      }
+
+      /* Style for the select element to match other fields */
+      form select {
+         width: 100%;
+         border: none;
+         border-bottom: 1px solid #ccc; /* Line effect */
+         outline: none;
+         font-size: 16px;
+         color: #333;
+         background-color: transparent; /* Transparent background */
+         position: relative;
+         top: -22px; /* Adjust to align input with label */
+      }
+
+      form select:focus {
+         border-bottom: 1px solid #0092CC; /* Highlighted line on focus */
+      }
+
+      /* Custom dropdown arrow */
+      form select::after {
+         content: '\25BC'; /* Unicode character for down arrow */
+         position: absolute;
+         top: 50%;
+         right: 10px;
+         transform: translateY(-50%);
+         pointer-events: none;
+      }
+
+      .condition {
+   font-size: 14px;
+   color: #666; /* Faint color for disclaimer text */
+   text-align: center;
+   line-height: 1.5; /* Adjust line height for readability */
+}
+
+.condition a {
+   color: #0092CC; /* Link color */
+   text-decoration: none;
+   transition: color 0.3s;
+}
+
+.condition a:hover {
+   color: #0056b3; /* Hover color for links */
+}
+
+
+   </style>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+   <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+
+      <h1 class="logo me-auto me-lg-0"><a href="index.php">EasyBidSolutions<span>.</span></a></h1>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto" href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto" href="#">Services</a></li>
+          <li><a class="nav-link scrollto" href="about.html">About Us</a></li>
+          <li><a class="nav-link scrollto" href="faq.html">FAQ</a></li>
+          <li><a class="nav-link scrollto" href="#">Returning Customers</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <a href="#about" class="get-started-btn scrollto active">Get Started</a>
+
+    </div>
+  </header><!-- End Header -->
+
+    <!-- ======= Account Intro Section ======= -->
+  <section id="acc-intro" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+        <div class="col-xl-6 col-lg-8" class="fixed">
+          <h1>Get Started</h1>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End FAQ Intro -->
+
+   <div class="center-container">
+      <h1><strong>Account</strong></h1>
+      <div class="tabs-container">
+         <ul class="tab-links">
+            <li class="tab-link active" onclick="openTab(event, 'login')">Login</li>
+            <li class="tab-link" onclick="openTab(event, 'register')">Register</li>
+         </ul>
+         <div class="tab-content">
+            <div id="login" class="active">
+               <h2>Login</h2>
+               <form name="bidform" action="login.php" method="POST">
+                  <label for="username">Email/Username</label>
+                  <input type="text" id="username" name="username" required><br><br>
+                  <label for="password">Password</label>
+                  <input type="password" id="password" name="password" required><br><br>
+                  <input type="submit" value="Login">
+               </form>
+            </div>
+            <div id="register">
+               <h2>Register</h2>
+               <form action="register.php" method="POST">
+                  <label for="new_username">First Name</label>
+                  <input type="text" id="new_fname" name="new_fname" required><br><br>
+
+                  <label for="new_username">Last Name</label>
+                  <input type="text" id="new_lname" name="new_lname" required><br><br>
+
+                  <label for="new_username">Username</label>
+                  <input type="text" id="new_uname" name="new_uname" required><br><br>
+
+                  <label for="email">Email</label>
+                  <input type="text" id="email" name="new_email" required><br><br>
+                  <span id="email-error" class="error-message"></span>
+
+                  <label for="phone">Phone</label>
+                  <input type="phone" id="new_phone" name="new_phone" required><br><br>
+                  <div id="phone-disclaimer" class="disclaimer">Must be in XXX-XXX-XXXX form.</div>
+
+                  <label for="state">State of Registration</label><br>
+                  <select id ="state" name="state">
+                     <option value="AL">Alabama</option>
+                     <option value="AK">Alaska</option>
+                     <option value="AZ">Arizona</option>
+                     <option value="AR">Arkansas</option>
+                     <option value="CA">California</option>
+                     <option value="CO">Colorado</option>
+                     <option value="CT">Connecticut</option>
+                     <option value="DE">Delaware</option>
+                     <option value="DC">District Of Columbia</option>
+                     <option value="FL">Florida</option>
+                     <option value="GA">Georgia</option>
+                     <option value="HI">Hawaii</option>
+                     <option value="ID">Idaho</option>
+                     <option value="IL">Illinois</option>
+                     <option value="IN">Indiana</option>
+                     <option value="IA">Iowa</option>
+                     <option value="KS">Kansas</option>
+                     <option value="KY">Kentucky</option>
+                     <option value="LA">Louisiana</option>
+                     <option value="ME">Maine</option>
+                     <option value="MD">Maryland</option>
+                     <option value="MA">Massachusetts</option>
+                     <option value="MI">Michigan</option>
+                     <option value="MN">Minnesota</option>
+                     <option value="MS">Mississippi</option>
+                     <option value="MO">Missouri</option>
+                     <option value="MT">Montana</option>
+                     <option value="NE">Nebraska</option>
+                     <option value="NV">Nevada</option>
+                     <option value="NH">New Hampshire</option>
+                     <option value="NJ">New Jersey</option>
+                     <option value="NM">New Mexico</option>
+                     <option value="NY">New York</option>
+                     <option value="NC">North Carolina</option>
+                     <option value="ND">North Dakota</option>
+                     <option value="OH">Ohio</option>
+                     <option value="OK">Oklahoma</option>
+                     <option value="OR">Oregon</option>
+                     <option value="PA">Pennsylvania</option>
+                     <option value="RI">Rhode Island</option>
+                     <option value="SC">South Carolina</option>
+                     <option value="SD">South Dakota</option>
+                     <option value="TN">Tennessee</option>
+                     <option value="TX">Texas</option>
+                     <option value="UT">Utah</option>
+                     <option value="VT">Vermont</option>
+                     <option value="VA">Virginia</option>
+                     <option value="WA">Washington</option>
+                     <option value="WV">West Virginia</option>
+                     <option value="WI">Wisconsin</option>
+                     <option value="WY">Wyoming</option>
+                  </select>
+
+                  <label for="license">Business Liscence Number</label>
+                  <input type="license" id="new_license" name="new_license" required><br><br>
+
+                  <label for="city">Business City</label>
+                  <input type="text" id="new_city" name="new_city" required><br><br>
+
+                  <label for="address">Address</label>
+                  <input type="text" id="new_address" name="new_address" required><br><br>
+                     <span id="address-error" class="error-message"></span>
+
+                  <label for="password">Password</label>
+                  <input type="password" id="new_password" name="new_password" required><br><br>
+                  <div id="password-disclaimer" class="disclaimer">Your password must be at least 8 characters long, contain at least 1 number and have a combination of uppercase and lowercase letters. It cannot be a recently used password.</div>
+
+                  <label for="repassword">Repeat Password</label>
+                  <input type="password" id="new_repassword" name="new_repassword" required><br><br>
+
+                  <p class="condition">
+                     By creating an account, I agree to EasyBidSolution's <a href="#">Privacy Policy</a> and <a href="#">Legal Statement</a>.</p>
+
+                  <input type="submit" value="Register"><br><br>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-info">
+              <h3>EasyBidSolutions<span>.</span></h3>
+              <p>
+                2121 I St, <br>
+                Washington, DC 20052, USA<br><br>
+                <strong>Phone:</strong> +1 (922) 554-8559<br>
+                <strong>Email:</strong> info@easybidsolutions.com<br>
+              </p>
+              <div class="note">
+                <p><strong>Contact us anytime!</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a href="#">Services</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Bid and Proposal Preparation</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Government Contract Consulting</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">New Contractor Assistance</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Compliance Management Solutions</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Training and Development Programs</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>By providing this information, you are opting to receive emails from EasyBidSolutions with news about services tailored to your interests, and you agree to the EasyBidSolutions privacy policy and terms of use.</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; 2023 <strong><span>EasyBidSolutions.</span></strong> All Rights Reserved
+      </div>
+      <div class="credits">
+        <p>Designed by <strong>EasyBidSolutions </strong>Team</p>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+   <script>
+
+
+document.addEventListener("DOMContentLoaded", function() {
+   let activeTab = sessionStorage.getItem('activeTab') || 'login'; // Default to login tab
+   document.getElementById(activeTab).classList.add('active');
+   document.querySelector('.tab-link.' + activeTab).classList.add('active');
+});
+
+
+
+      function openTab(event, tabName) {
+         var i, tabContent, tabLinks;
+         tabContent = document.querySelectorAll('.tab-content > div');
+         for (i = 0; i < tabContent.length; i++) {
+            tabContent[i].classList.remove('active');
+         }
+         tabLinks = document.querySelectorAll('.tab-links .tab-link');
+         for (i = 0; i < tabLinks.length; i++) {
+            tabLinks[i].classList.remove('active');
+         }
+         document.getElementById(tabName).classList.add('active');
+         event.currentTarget.classList.add('active');
+
+         // Hide the password disclaimer when switching tabs
+         document.getElementById('password-disclaimer').style.display = 'none';
+         document.getElementById('phone-disclaimer').style.display = 'none';
+      }
+
+      // Set default active tab on page load
+      document.addEventListener("DOMContentLoaded", function() {
+         document.querySelector('.tab-link').click();
+      });
+
+      // Show disclaimer when password and phone field is focused
+      document.getElementById('new_password').addEventListener('focus', function() {
+         document.getElementById('password-disclaimer').style.display = 'block';
+      });
+
+      document.getElementById('new_phone').addEventListener('focus', function() {
+         document.getElementById('phone-disclaimer').style.display = 'block';
+      });
+
+      // Hide disclaimer when password field loses focus
+      document.getElementById('new_password').addEventListener('blur', function() {
+         document.getElementById('password-disclaimer').style.display = 'none';
+      });
+
+      document.getElementById('new_phone').addEventListener('blur', function() {
+         document.getElementById('phone-disclaimer').style.display = 'none';
+      });
+
+   </script>
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>
